@@ -57,7 +57,7 @@
 
 			callBlock();
 			var nonmousedOpacity = $m.css('opacity');
-			$m.mouseover(function() {
+			$m.on('mouseover', function() {
 				callBlock({
 					fadeIn: 0,
 					timeout: 30000
@@ -66,7 +66,7 @@
 				var displayBlock = $('.blockMsg');
 				displayBlock.stop(); // cancel fadeout if it has started
 				displayBlock.fadeTo(300, 1); // make it easier to read the message by removing transparency
-			}).mouseout(function() {
+			}).on('mouseout', function() {
 				$('.blockMsg').fadeOut(1000);
 			});
 			// End konapun additions
@@ -551,9 +551,9 @@
 			// bind anchors and inputs for mouse and key events
 			var events = 'mousedown mouseup keydown keypress keyup touchstart touchend touchmove';
 			if (b)
-				$(document).bind(events, opts, handler);
+				$(document).on(events, null, opts, handler);
 			else
-				$(document).unbind(events, handler);
+				$(document).off(events, handler);
 
 		// former impl...
 		//		var $e = $('a,:input');
@@ -592,7 +592,7 @@
 				return;
 			var e = pageBlockEls[back===true ? pageBlockEls.length-1 : 0];
 			if (e)
-				e.focus();
+				e.trigger('focus');
 		}
 
 		function center(el, x, y) {
